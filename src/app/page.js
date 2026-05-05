@@ -119,14 +119,35 @@ export default function Home() {
                   fill
                   style={{ objectFit: 'contain', borderRadius: '8px' }}
                 />
-                {/* Labels positioned according to typical botanical diagram */}
-                <span className="diagram-label" style={{ top: '15%', left: '20%' }}>Píleo (Sombrero)</span>
-                <span className="diagram-label" style={{ top: '10%', left: '65%' }}>Escamas</span>
-                <span className="diagram-label" style={{ top: '35%', left: '75%' }}>Láminas</span>
-                <span className="diagram-label" style={{ top: '45%', left: '15%' }}>Anillo</span>
-                <span className="diagram-label" style={{ top: '65%', left: '70%' }}>Estípite (Pie)</span>
-                <span className="diagram-label" style={{ top: '80%', left: '20%' }}>Volva</span>
-                <span className="diagram-label" style={{ top: '92%', left: '50%' }}>Micelio</span>
+                
+                {/* Connector Lines & Labels */}
+                {/* Píleo */}
+                <div className="connector" style={{ top: '22%', left: '35%', width: '40px', transform: 'rotate(-20deg)' }}></div>
+                <span className="diagram-label" style={{ top: '18%', left: '15%' }}>Píleo (Sombrero)</span>
+                
+                {/* Escamas */}
+                <div className="connector" style={{ top: '18%', left: '55%', width: '40px', transform: 'rotate(20deg)' }}></div>
+                <span className="diagram-label" style={{ top: '14%', left: '65%' }}>Escamas</span>
+                
+                {/* Láminas */}
+                <div className="connector" style={{ top: '38%', left: '55%', width: '60px', transform: 'rotate(10deg)' }}></div>
+                <span className="diagram-label" style={{ top: '38%', left: '72%' }}>Láminas</span>
+                
+                {/* Anillo */}
+                <div className="connector" style={{ top: '48%', left: '35%', width: '50px', transform: 'rotate(-10deg)' }}></div>
+                <span className="diagram-label" style={{ top: '48%', left: '12%' }}>Anillo</span>
+                
+                {/* Estípite */}
+                <div className="connector" style={{ top: '65%', left: '55%', width: '50px', transform: 'rotate(5deg)' }}></div>
+                <span className="diagram-label" style={{ top: '65%', left: '72%' }}>Estípite (Pie)</span>
+                
+                {/* Volva */}
+                <div className="connector" style={{ top: '82%', left: '35%', width: '50px', transform: 'rotate(-15deg)' }}></div>
+                <span className="diagram-label" style={{ top: '80%', left: '12%' }}>Volva</span>
+                
+                {/* Micelio */}
+                <div className="connector" style={{ top: '92%', left: '50%', width: '2px', height: '20px', transform: 'translateY(-100%)' }}></div>
+                <span className="diagram-label" style={{ top: '92%', left: '50%', transform: 'translateX(-50%)' }}>Micelio</span>
               </div>
               <div className="placeholder-text" style={{ fontSize: '0.9rem', padding: '10px' }}>
                 [ESCRIBE AQUÍ LAS FUNCIONES DE CADA PARTE: El micelio absorbe nutrientes, las láminas dispersan esporas, etc.]

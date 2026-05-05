@@ -164,16 +164,23 @@ h1, h2 {
   box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
 }
 
-.diagram-label::before {
+.connector {
+  position: absolute;
+  height: 1px;
+  background: var(--accent-color);
+  z-index: 5;
+  opacity: 0.6;
+}
+
+.connector::after {
   content: '';
   position: absolute;
-  width: 6px;
-  height: 6px;
+  right: 0;
+  top: -2px;
+  width: 5px;
+  height: 5px;
   background: var(--accent-color);
   border-radius: 50%;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 /* Navigation Buttons */
