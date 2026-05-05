@@ -143,12 +143,37 @@ h1, h2 {
 
 .diagram-label {
   position: absolute;
+  background: var(--paper-bg);
+  color: var(--accent-color);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: help;
+  border: 1px solid var(--accent-color);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.diagram-label:hover {
+  transform: scale(1.1);
   background: var(--accent-color);
   color: white;
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-size: 0.8rem;
-  cursor: help;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+}
+
+.diagram-label::before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--accent-color);
+  border-radius: 50%;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* Navigation Buttons */

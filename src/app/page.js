@@ -110,20 +110,26 @@ export default function Home() {
           onClick={() => togglePage(1)}
         >
           <div className="page-side">
-            <h2>Partes del Hongo</h2>
+            <h2>Anatomía Detallada</h2>
             <div className="content-area">
-              <div className="diagram-container">
-                <svg viewBox="0 0 200 200" width="150" height="150">
-                  <path d="M100,50 C60,50 40,80 40,100 L160,100 C160,80 140,50 100,50" fill="#a52a2a" />
-                  <rect x="90" y="100" width="20" height="70" fill="#e0c097" />
-                  <circle cx="100" cy="120" r="15" fill="none" stroke="#8b4513" strokeWidth="1" />
-                </svg>
-                <span className="diagram-label" style={{ top: '30%', left: '45%' }}>Píleo</span>
-                <span className="diagram-label" style={{ top: '65%', left: '35%' }}>Anillo</span>
-                <span className="diagram-label" style={{ top: '80%', left: '55%' }}>Estípite</span>
+              <div className="diagram-container" style={{ height: '320px', background: 'none' }}>
+                <Image 
+                  src="/anatomy.png" 
+                  alt="Anatomía del hongo" 
+                  fill
+                  style={{ objectFit: 'contain', borderRadius: '8px' }}
+                />
+                {/* Labels positioned according to typical botanical diagram */}
+                <span className="diagram-label" style={{ top: '15%', left: '20%' }}>Píleo (Sombrero)</span>
+                <span className="diagram-label" style={{ top: '10%', left: '65%' }}>Escamas</span>
+                <span className="diagram-label" style={{ top: '35%', left: '75%' }}>Láminas</span>
+                <span className="diagram-label" style={{ top: '45%', left: '15%' }}>Anillo</span>
+                <span className="diagram-label" style={{ top: '65%', left: '70%' }}>Estípite (Pie)</span>
+                <span className="diagram-label" style={{ top: '80%', left: '20%' }}>Volva</span>
+                <span className="diagram-label" style={{ top: '92%', left: '50%' }}>Micelio</span>
               </div>
-              <div className="placeholder-text">
-                [ESCRIBE AQUÍ LAS PARTES Y SUS FUNCIONES]
+              <div className="placeholder-text" style={{ fontSize: '0.9rem', padding: '10px' }}>
+                [ESCRIBE AQUÍ LAS FUNCIONES DE CADA PARTE: El micelio absorbe nutrientes, las láminas dispersan esporas, etc.]
               </div>
             </div>
           </div>
