@@ -3,28 +3,42 @@
 import { useState } from "react";
 import Image from "next/image";
 
+/**
+ * Componente Principal del Simulador "Los Hongos"
+ * Este componente maneja la lógica del libro 3D interactivo.
+ */
 export default function Home() {
+  // Estado para controlar qué páginas están volteadas y su orden de apilamiento (z-index)
   const [pages, setPages] = useState([
-    { id: 1, flipped: false, zIndex: 5 },
-    { id: 2, flipped: false, zIndex: 4 },
-    { id: 3, flipped: false, zIndex: 3 },
-    { id: 4, flipped: false, zIndex: 2 },
+    { id: 1, flipped: false, zIndex: 5 }, // Portada
+    { id: 2, flipped: false, zIndex: 4 }, // Anatomía
+    { id: 3, flipped: false, zIndex: 3 }, // Reproducción
+    { id: 4, flipped: false, zIndex: 2 }, // Amanita Muscaria
   ]);
 
+  /**
+   * Función para voltear una página específica
+   * @param {number} index - Índice de la página en el array
+   */
   const togglePage = (index) => {
     const newPages = [...pages];
     newPages[index].flipped = !newPages[index].flipped;
     
-    // Adjust z-index based on flip state to ensure proper stacking
+    // Ajuste dinámico del z-index para que las páginas se vean correctamente al voltearlas
     if (newPages[index].flipped) {
+      // Si se voltea hacia la izquierda, el z-index debe ser bajo para que las siguientes queden encima
       newPages[index].zIndex = index + 1;
     } else {
+      // Si se regresa a la derecha, recupera su prioridad de apilamiento original
       newPages[index].zIndex = pages.length - index;
     }
     
     setPages(newPages);
   };
 
+  /**
+   * Navegación: Avanzar a la siguiente página
+   */
   const nextStep = () => {
     const firstUnflipped = pages.findIndex(p => !p.flipped);
     if (firstUnflipped !== -1) {
@@ -32,6 +46,9 @@ export default function Home() {
     }
   };
 
+  /**
+   * Navegación: Regresar a la página anterior
+   */
   const prevStep = () => {
     const lastFlipped = [...pages].reverse().findIndex(p => p.flipped);
     if (lastFlipped !== -1) {
@@ -43,21 +60,24 @@ export default function Home() {
     <div className="book-wrapper">
       <div className="book">
         
-        {/* PAGE 4: Amanita Muscaria & Final */}
+        {/* ==========================================
+            PÁGINA 4: Amanita Muscaria & Contraportada
+            ========================================== */}
         <div 
           className={`page ${pages[3].flipped ? 'flipped' : ''}`} 
           style={{ zIndex: pages[3].zIndex }}
           onClick={() => togglePage(3)}
         >
+          {/* Lado Frontal: Información sobre la Amanita */}
           <div className="page-side">
             <h2>Amanita Muscaria</h2>
             <div className="content-area">
               <div style={{ position: 'relative', width: '100%', height: '220px', borderRadius: '8px', overflow: 'hidden' }}>
                 <Image 
-                  src="/amanita.png" 
+                  src="/amanita_clean.png" 
                   alt="Amanita Muscaria" 
                   fill
-                  style={{ objectFit: 'cover' }}
+                  style={{ objectFit: 'contain' }}
                 />
               </div>
               <div className="placeholder-text">
@@ -65,34 +85,43 @@ export default function Home() {
               </div>
             </div>
           </div>
+          {/* Lado Posterior: Contraportada del libro */}
           <div className="page-side back cover">
             <h1>Fin</h1>
             <p>Feria de Ciencias 2026</p>
           </div>
         </div>
 
-        {/* PAGE 3: Reproducción */}
+        {/* ==========================================
+            PÁGINA 3: Reproducción y Curiosidades
+            ========================================== */}
         <div 
           className={`page ${pages[2].flipped ? 'flipped' : ''}`} 
           style={{ zIndex: pages[2].zIndex }}
           onClick={() => togglePage(2)}
         >
+          {/* Lado Frontal: Ciclos de Reproducción */}
           <div className="page-side">
             <h2>Reproducción</h2>
-            <div className="content-area">
-              <div style={{ display: 'flex', gap: '15px', height: '100%' }}>
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <h3 style={{ fontSize: '1.2rem', color: '#8b0000' }}>Sexual</h3>
-                  <div className="placeholder-text">[INFO REPRODUCCIÓN SEXUAL]</div>
+                        <div className="content-area">
+              <div className="reproduction-container">
+                <div className="reproduction-column">
+                  <h3 className="reproduction-title">Sexual</h3>
+                  <p className="reproduction-text">
+                    Ocurre cuando dos hifas se unen y comparten la misma célula. Al combinarse, crean un <strong>cigoto</strong> que da origen a las <strong>esporas</strong>. Estas se esparcen por el ambiente para dar vida a nuevos honguitos.
+                  </p>
                 </div>
-                <div style={{ width: '1px', background: '#ddd' }}></div>
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <h3 style={{ fontSize: '1.2rem', color: '#8b0000' }}>Asexual</h3>
-                  <div className="placeholder-text">[INFO REPRODUCCIÓN ASEXUAL]</div>
+                <div style={{ width: '1px', background: 'rgba(0,0,0,0.1)' }}></div>
+                <div className="reproduction-column">
+                  <h3 className="reproduction-title">Asexual</h3>
+                  <p className="reproduction-text">
+                    No requiere de dos individuos; una sola célula se separa para crear <strong>copias idénticas</strong> del progenitor. A diferencia de la sexual donde cada hongo es único, aquí son clones exactos.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
+          {/* Lado Posterior: Datos Curiosos */}
           <div className="page-side back">
             <h2>Curiosidades</h2>
             <div className="content-area">
@@ -103,16 +132,19 @@ export default function Home() {
           </div>
         </div>
 
-        {/* PAGE 2: Partes del Hongo */}
+        {/* ==========================================
+            PÁGINA 2: Anatomía del Hongo
+            ========================================== */}
         <div 
           className={`page ${pages[1].flipped ? 'flipped' : ''}`} 
           style={{ zIndex: pages[1].zIndex }}
           onClick={() => togglePage(1)}
         >
+          {/* Lado Frontal: Diagrama Interactivo */}
           <div className="page-side">
             <h2>Anatomía Detallada</h2>
             <div className="content-area">
-              <div className="diagram-container" style={{ height: '320px', background: 'none' }}>
+              <div className="diagram-container" style={{ height: '420px', background: 'none' }}>
                 <Image 
                   src="/anatomy.png" 
                   alt="Anatomía del hongo" 
@@ -120,10 +152,10 @@ export default function Home() {
                   style={{ objectFit: 'contain', borderRadius: '8px' }}
                 />
                 
-                {/* Connector Lines & Labels */}
+                {/* Líneas Conectoras y Etiquetas (Labels) */}
                 {/* Píleo */}
                 <div className="connector" style={{ top: '22%', left: '35%', width: '40px', transform: 'rotate(-20deg)' }}></div>
-                <span className="diagram-label" style={{ top: '18%', left: '15%' }}>Píleo (Sombrero)</span>
+                <span className="diagram-label" title="Parte superior que protege las láminas" style={{ top: '18%', left: '15%' }}>Píleo (Sombrero)</span>
                 
                 {/* Escamas */}
                 <div className="connector" style={{ top: '18%', left: '55%', width: '40px', transform: 'rotate(20deg)' }}></div>
@@ -149,27 +181,36 @@ export default function Home() {
                 <div className="connector" style={{ top: '92%', left: '50%', width: '2px', height: '20px', transform: 'translateY(-100%)' }}></div>
                 <span className="diagram-label" style={{ top: '92%', left: '50%', transform: 'translateX(-50%)' }}>Micelio</span>
               </div>
-              <div className="placeholder-text" style={{ fontSize: '0.9rem', padding: '10px' }}>
-                [ESCRIBE AQUÍ LAS FUNCIONES DE CADA PARTE: El micelio absorbe nutrientes, las láminas dispersan esporas, etc.]
-              </div>
             </div>
           </div>
+          {/* Lado Posterior: Explicación de las Funciones */}
           <div className="page-side back">
-            <h2>El Micelio</h2>
+            <h2>Partes de los hongos</h2>
             <div className="content-area">
-              <div className="placeholder-text">
-                [MÁS ESPACIO PARA TU INFORMACIÓN]
+              <div className="placeholder-text" style={{ flex: 1, padding: '20px', fontSize: '1.1rem' }}>
+                [ESCRIBE AQUÍ LAS FUNCIONES DE CADA PARTE:
+                
+                - Píleo: ...
+                - Láminas: ...
+                - Anillo: ...
+                - Estípite: ...
+                - Volva: ...
+                - Micelio: ...
+                ]
               </div>
             </div>
           </div>
         </div>
 
-        {/* PAGE 1: Cover */}
+        {/* ==========================================
+            PÁGINA 1: Portada e Introducción
+            ========================================== */}
         <div 
           className={`page ${pages[0].flipped ? 'flipped' : ''}`} 
           style={{ zIndex: pages[0].zIndex }}
           onClick={() => togglePage(0)}
         >
+          {/* Lado Frontal: Portada Artística */}
           <div className="page-side cover" style={{ padding: 0, position: 'relative' }}>
             <Image 
               src="/cover_v2.png" 
@@ -178,6 +219,7 @@ export default function Home() {
               style={{ objectFit: 'cover' }}
               priority
             />
+            {/* Título Estilizado en la Portada */}
             <div style={{
               position: 'absolute',
               bottom: '10%',
@@ -215,11 +257,37 @@ export default function Home() {
               }}>Simulador Botánico Interactivo</p>
             </div>
           </div>
+          {/* Lado Posterior: Introducción al Proyecto */}
           <div className="page-side back">
             <h2>Introducción</h2>
             <div className="content-area">
-              <div className="placeholder-text">
-                [PRESENTACIÓN DE TU PROYECTO]
+              <p style={{ 
+                fontSize: '1.25rem', 
+                lineHeight: '1.6', 
+                color: '#4a3728',
+                textAlign: 'justify',
+                textIndent: '30px'
+              }}>
+                Los hongos son criaturas fascinantes. Bienvenido a un mundo inexplorado y nuevo. 
+                Esta es una especie de bitácora donde registraré toda mi investigación para mi feria de ciencias.
+              </p>
+              <p style={{ 
+                fontSize: '1.25rem', 
+                lineHeight: '1.6', 
+                color: '#4a3728',
+                textAlign: 'justify',
+                marginTop: '15px'
+              }}>
+                Existen muchos tipos: venenosos, alucinógenos y comestibles. Además, pueden ser 
+                unicelulares (de una sola célula) o pluricelulares (de muchas células).
+              </p>
+              <div style={{ 
+                marginTop: '30px', 
+                textAlign: 'center', 
+                opacity: 0.6,
+                fontStyle: 'italic'
+              }}>
+                — Investigador Botánico —
               </div>
             </div>
           </div>
@@ -227,6 +295,7 @@ export default function Home() {
 
       </div>
 
+      {/* Controles de Navegación Inferiores */}
       <div className="nav-controls">
         <button className="nav-btn" onClick={prevStep}>Anterior</button>
         <button className="nav-btn" onClick={nextStep}>Siguiente</button>

@@ -1,6 +1,10 @@
+/* ==========================================
+   CONFIGURACIÓN GLOBAL Y FUENTES
+   ========================================== */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
 
 :root {
+  /* Paleta de colores: Estilo papel antiguo y cuero */
   --paper-bg: #fdf6e3;
   --paper-texture: url('https://www.transparenttextures.com/patterns/old-mathematics.png');
   --leather-bg: #3d2b1f;
@@ -16,6 +20,7 @@
 }
 
 body {
+  /* Fondo oscuro con gradiente para resaltar el libro */
   background-color: #1a1a1a;
   background-image: radial-gradient(circle, #2a2a2a 0%, #111111 100%);
   font-family: 'Cormorant Garamond', serif;
@@ -34,7 +39,11 @@ h1, h2 {
   color: var(--accent-color);
 }
 
-/* Book Container */
+/* ==========================================
+   ESTRUCTURA DEL LIBRO (LÓGICA 3D)
+   ========================================== */
+
+/* Contenedor con perspectiva para el efecto 3D */
 .book-wrapper {
   perspective: 2000px;
   display: flex;
@@ -42,6 +51,7 @@ h1, h2 {
   align-items: center;
 }
 
+/* El libro físico */
 .book {
   width: 450px;
   height: 600px;
@@ -50,27 +60,28 @@ h1, h2 {
   transform-style: preserve-3d;
 }
 
-/* Base Page Styles */
+/* Estilos base para cada hoja */
 .page {
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  transform-origin: left;
+  transform-origin: left; /* El eje de rotación es el lomo del libro */
   transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
   transform-style: preserve-3d;
   cursor: pointer;
   box-shadow: inset 3px 0 10px rgba(0,0,0,0.1);
 }
 
+/* Las dos caras de una hoja (frente y vuelta) */
 .page-side {
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  backface-visibility: hidden;
+  backface-visibility: hidden; /* Oculta la cara trasera cuando no se ve */
   padding: 40px;
   background-color: var(--paper-bg);
   background-image: var(--paper-texture);
@@ -80,17 +91,22 @@ h1, h2 {
   overflow: hidden;
 }
 
+/* Lado trasero de la página (necesita estar rotado 180 grados) */
 .page-side.back {
   transform: rotateY(180deg);
   border-radius: 5px 0 0 5px;
 }
 
-/* Flipped State */
+/* Estado de la página cuando está volteada */
 .page.flipped {
   transform: rotateY(-180deg);
 }
 
-/* Cover Styling */
+/* ==========================================
+   ESTILOS DE CONTENIDO Y PORTADA
+   ========================================== */
+
+/* Estilo para las portadas (Efecto Cuero) */
 .cover {
   background-color: var(--leather-bg) !important;
   color: #e0c097;
@@ -105,10 +121,7 @@ h1, h2 {
   outline-offset: -8px;
 }
 
-/* Cover is now handled with full-page absolute positioning */
-
-
-/* Content Styling */
+/* Áreas de contenido dentro de las páginas */
 .content-area {
   flex: 1;
   display: flex;
@@ -117,18 +130,55 @@ h1, h2 {
   margin-top: 20px;
 }
 
+/* Cajas de texto temporales (Placeholders) */
 .placeholder-text {
   border: 1px dashed #ccc;
   padding: 15px;
   flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column; /* Cambiado a column */
+  align-items: flex-start; /* Alineado a la izquierda */
+  justify-content: flex-start; /* Alineado arriba */
   background: rgba(255, 255, 255, 0.3);
   font-style: italic;
   color: #666;
   border-radius: 4px;
 }
+
+/* Estilos específicos para la página de reproducción */
+.reproduction-container {
+  display: flex;
+  gap: 20px;
+  height: 100%;
+}
+
+.reproduction-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.reproduction-text {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  text-align: left; /* Quitamos justify para evitar estiramiento feo */
+  color: #4a3728;
+  font-style: normal;
+}
+
+.reproduction-title {
+  font-size: 1.3rem;
+  color: var(--accent-color);
+  margin-bottom: 5px;
+  border-bottom: 1px solid rgba(165, 42, 42, 0.2);
+  padding-bottom: 5px;
+}
+
+
+/* ==========================================
+   DIAGRAMA INTERACTIVO (ETIQUETAS)
+   ========================================== */
 
 .diagram-container {
   width: 100%;
@@ -141,6 +191,7 @@ h1, h2 {
   position: relative;
 }
 
+/* Etiquetas del diagrama de anatomía */
 .diagram-label {
   position: absolute;
   background: var(--paper-bg);
@@ -164,6 +215,7 @@ h1, h2 {
   box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
 }
 
+/* Líneas que conectan la etiqueta con el dibujo */
 .connector {
   position: absolute;
   height: 1px;
@@ -183,7 +235,10 @@ h1, h2 {
   border-radius: 50%;
 }
 
-/* Navigation Buttons */
+/* ==========================================
+   CONTROLES DE NAVEGACIÓN
+   ========================================== */
+
 .nav-controls {
   position: fixed;
   bottom: 40px;
@@ -208,7 +263,9 @@ h1, h2 {
   background: #5a3e2b;
 }
 
-/* Responsive */
+/* ==========================================
+   RESPONSIVIDAD (MÓVILES)
+   ========================================== */
 @media (max-width: 500px) {
   .book {
     width: 320px;
