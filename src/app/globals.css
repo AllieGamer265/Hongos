@@ -56,8 +56,9 @@ h1, h2 {
   width: 450px;
   height: 600px;
   position: relative;
-  transition: transform 0.5s;
   transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+  z-index: 100;
 }
 
 /* Estilos base para cada hoja */
@@ -241,34 +242,446 @@ h1, h2 {
 
 .nav-controls {
   position: fixed;
-  bottom: 40px;
+  bottom: 15px;
   display: flex;
-  gap: 20px;
+  gap: 40px;
   z-index: 1000;
 }
 
 .nav-btn {
   background: var(--leather-bg);
   color: #e0c097;
-  border: none;
-  padding: 10px 25px;
+  border: 1px solid #5a3e2b;
+  padding: 8px 20px;
   font-family: inherit;
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background 0.3s;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .nav-btn:hover {
   background: #5a3e2b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+}
+
+.nav-btn:active {
+  transform: translateY(0);
+}
+
+/* Ocultar en móviles muy pequeños si estorban */
+@media (max-width: 400px) {
+  .nav-controls {
+    gap: 15px;
+    bottom: 10px;
+  }
+  .nav-btn {
+    padding: 6px 15px;
+    font-size: 0.9rem;
+  }
 }
 
 /* ==========================================
-   RESPONSIVIDAD (MÓVILES)
+   RESPONSIVIDAD (MÓVILES Y TABLETS)
    ========================================== */
+
+/* Ajuste para laptops pequeñas y tablets grandes */
+@media (max-width: 1024px) {
+  .book {
+    width: 420px;
+    height: 560px;
+  }
+}
+
+/* Ajuste para tablets (iPad, etc) */
+@media (max-width: 768px) {
+  .book {
+    width: 380px;
+    height: 520px;
+  }
+  
+  .page-side {
+    padding: 30px 20px;
+  }
+
+  .nav-btn {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+  }
+
+  .diagram-label {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Ajuste para móviles */
 @media (max-width: 500px) {
   .book {
     width: 320px;
-    height: 450px;
+    height: 480px;
   }
+  
+  .page-side {
+    padding: 20px 15px;
+  }
+  
+  .nav-controls {
+    gap: 20px;
+  }
+}
+
+
+/* ==========================================
+   INTERACCIÓN DE CRECIMIENTO
+   ========================================== */
+
+.growth-stage-container {
+  width: 100%;
+  height: 220px;
+  background: linear-gradient(to bottom, #dcedc8, #f1f8e9);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.05);
+}
+
+/* Detalles de bosque al fondo */
+.growth-stage-container::before {
+  content: '🌿';
+  position: absolute;
+  bottom: 20px;
+  left: 10%;
+  font-size: 1.5rem;
+  opacity: 0.3;
+}
+
+.growth-stage-container::after {
+  content: '🌱';
+  position: absolute;
+  bottom: 25px;
+  right: 15%;
+  font-size: 1.2rem;
+  opacity: 0.3;
+}
+
+.ground-soil {
+  position: absolute;
+  bottom: -5px;
+  width: 140%;
+  height: 45px;
+  background: linear-gradient(to bottom, #3e2723, #1b110a);
+  border-radius: 40% 40% 0 0;
+  z-index: 10;
+  border-top: 3px solid #2e7d32; /* Musgo/Pasto */
+}
+
+.mushroom-growth {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+  transform: translateY(15px);
+  transition: all 1s ease;
+}
+
+.mushroom-stem {
+  width: 14px;
+  height: 0;
+  background: linear-gradient(to right, #fdf6e3, #f5f5dc, #e0c097);
+  border-radius: 4px;
+  box-shadow: inset -2px 0 5px rgba(0,0,0,0.1);
+  transition: height 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+/* El anillo del hongo que aparece al crecer */
+.mushroom-ring {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 20px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  transition: transform 1s ease 2s;
+  border: 1px solid rgba(0,0,0,0.05);
+  opacity: 0;
+}
+
+.mushroom-cap {
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle at 30% 30%, #ff5252, #d32f2f, #a52a2a);
+  border-radius: 50% 50% 10% 10%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3), inset 0 -5px 15px rgba(0,0,0,0.2);
+  transition: all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2s;
+  position: relative;
+  z-index: 6;
+}
+
+.cap-dots {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease 3s;
+  z-index: 7;
+}
+
+.dot {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.dot:nth-child(1) { top: 15%; left: 25%; width: 8px; height: 8px; }
+.dot:nth-child(2) { top: 35%; left: 55%; width: 6px; height: 6px; }
+.dot:nth-child(3) { top: 20%; left: 75%; width: 5px; height: 5px; }
+.dot:nth-child(4) { top: 55%; left: 35%; width: 7px; height: 7px; }
+
+/* Estados de crecimiento realistas */
+.mushroom-growth.growing .mushroom-stem {
+  height: 75px;
+}
+
+.mushroom-growth.growing.mature .mushroom-cap {
+  width: 85px;
+  height: 45px;
+  margin-bottom: -8px;
+}
+
+.mushroom-growth.growing.mature .mushroom-ring {
+  transform: translateX(-50%) scaleX(1);
+  opacity: 1;
+}
+
+.mushroom-growth.growing.mature .cap-dots {
+  opacity: 0.95;
+}
+
+/* Botones y cajas mejoradas */
+.interact-btn {
+  background: #2e7d32; /* Color bosque */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: bold;
+  transition: all 0.3s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.interact-btn:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  background: #388e3c;
+}
+
+.interact-btn.reset {
+  background: #5d4037;
+}
+
+.curiosidad-box {
+  margin-top: 15px;
+  padding: 15px;
+  background: linear-gradient(to right, rgba(165, 42, 42, 0.05), transparent);
+  border-left: 4px solid #2e7d32;
+  border-radius: 4px;
+}
+
+/* Estilo para la información detallada de anatomía */
+.info-display {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(165, 42, 42, 0.2);
+  border-radius: 8px;
+  margin-top: 20px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info-display h3 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.info-display p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #4a3728;
+}
+
+.empty-info {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}
+
+/* ==========================================
+   HITBOXES DE NAVEGACIÓN LATERAL
+   ========================================== */
+
+.flip-hitbox {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  z-index: 10;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+}
+
+.flip-hitbox.left {
+  left: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.05), transparent);
+}
+
+.flip-hitbox.right {
+  right: 0;
+  background: linear-gradient(to left, rgba(0,0,0,0.05), transparent);
+}
+
+.flip-hitbox::after {
+  font-size: 2.5rem;
+  color: rgba(0,0,0,0.2);
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.flip-hitbox.left:hover::after {
+  content: '←';
+  opacity: 1;
+  transform: translateX(-10px);
+}
+
+.flip-hitbox.right:hover::after {
+  content: '→';
+  opacity: 1;
+  transform: translateX(10px);
+}
+
+/* Ajustes de perspectiva */
+.book {
+  transition: transform 0.1s ease-out; /* Suavizar el tilt */
+}
+
+/* ==========================================
+   GALERÍA DE RAREZAS (PÁGINA 4)
+   ========================================== */
+
+.rare-gallery-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 100%;
+}
+
+.rare-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 2px solid #ccc;
+  position: relative;
+  transition: all 0.5s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 320px;
+}
+
+.rare-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  align-self: flex-start;
+}
+
+.rare-visual-placeholder {
+  flex: 1;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.rare-controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.rare-dot-btn {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--dot-color);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.rare-dot-btn.active {
+  background: var(--dot-color);
+  transform: scale(1.3);
+  box-shadow: 0 0 10px var(--dot-color);
+}
+
+/* Sección de Importancia */
+.importance-item {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  border-left: 4px solid var(--accent-color);
+  margin-bottom: 10px;
+}
+
+.importance-icon {
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.importance-item h4 {
+  margin: 0;
+  color: var(--accent-color);
+  font-family: 'Playfair Display', serif;
+}
+
+.importance-item p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #4a3728;
 }
