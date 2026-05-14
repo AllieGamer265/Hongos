@@ -20,7 +20,6 @@
 }
 
 body {
-  /* Fondo oscuro con gradiente para resaltar el libro */
   background-color: #1a1a1a;
   background-image: radial-gradient(circle, #2a2a2a 0%, #111111 100%);
   font-family: 'Cormorant Garamond', serif;
@@ -31,6 +30,7 @@ body {
   min-height: 100vh;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 1s ease;
 }
 
 h1, h2 {
@@ -684,4 +684,169 @@ h1, h2 {
   margin: 0;
   font-size: 0.95rem;
   color: #4a3728;
+}
+
+/* ==========================================
+   SIMULADOR DE SIMBIOSIS (AMANITA)
+   ========================================== */
+
+.symbiosis-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 250px;
+  background: linear-gradient(to bottom, #3e2a1e 0%, #1a120c 100%);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 10px;
+  border: 2px solid #5a4231;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+
+.underground-scene {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.tree-roots-zone, .fungus-mycelium-zone {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.tree-roots-zone {
+  border-right: 2px dashed rgba(255,255,255,0.1);
+}
+
+.zone-label {
+  position: absolute;
+  top: 10px;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.4);
+  font-family: monospace;
+  letter-spacing: 1px;
+}
+
+/* Raíces del Árbol */
+.root-main {
+  position: absolute;
+  top: 0;
+  width: 8px;
+  height: 40%;
+  background-color: #8b5a2b;
+  border-radius: 0 0 4px 4px;
+  transition: height 1.5s ease-in-out;
+}
+.root-branch {
+  position: absolute;
+  width: 4px;
+  background-color: #8b5a2b;
+  border-radius: 4px;
+  transition: height 1.5s ease-in-out, opacity 1s;
+  opacity: 0.6;
+}
+.root-branch.r1 { top: 20%; left: 30%; height: 20%; transform: rotate(20deg); }
+.root-branch.r2 { top: 30%; left: 60%; height: 25%; transform: rotate(-15deg); }
+
+/* Micelio del Hongo */
+.mycelium-main {
+  position: absolute;
+  bottom: 0;
+  width: 5px;
+  height: 30%;
+  background-color: #fdf6e3;
+  border-radius: 4px 4px 0 0;
+  transition: height 1.5s ease-in-out;
+  box-shadow: 0 0 5px rgba(253,246,227,0.3);
+}
+.mycelium-branch {
+  position: absolute;
+  width: 2px;
+  background-color: #fdf6e3;
+  border-radius: 2px;
+  transition: height 1.5s ease-in-out, opacity 1s;
+  opacity: 0.6;
+}
+.mycelium-branch.m1 { bottom: 15%; left: 40%; height: 20%; transform: rotate(-25deg); }
+.mycelium-branch.m2 { bottom: 20%; left: 60%; height: 25%; transform: rotate(20deg); }
+
+/* Estado Conectado */
+.symbiosis-container.connected .root-main { height: 70%; }
+.symbiosis-container.connected .root-branch.r1 { height: 40%; opacity: 1; }
+.symbiosis-container.connected .root-branch.r2 { height: 45%; opacity: 1; }
+
+.symbiosis-container.connected .mycelium-main { height: 60%; }
+.symbiosis-container.connected .mycelium-branch.m1 { height: 45%; opacity: 1; }
+.symbiosis-container.connected .mycelium-branch.m2 { height: 50%; opacity: 1; }
+
+/* Centro de conexión */
+.connection-core {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  z-index: 10;
+}
+.glow-pulse {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  50% { transform: scale(1.5); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0.5; }
+}
+
+/* Partículas */
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 5;
+}
+
+.particle.sugar {
+  background-color: #ffd700; /* Dorado para azúcar */
+  box-shadow: 0 0 8px #ffd700;
+  animation: flowDown 2s infinite linear;
+}
+
+.particle.water {
+  background-color: #00bfff; /* Azul para agua/minerales */
+  box-shadow: 0 0 8px #00bfff;
+  animation: flowUp 2s infinite linear;
+}
+
+/* Animaciones escalonadas para partículas */
+.sugar.p1 { left: 45%; animation-delay: 0s; }
+.sugar.p2 { left: 55%; animation-delay: 0.6s; }
+.sugar.p3 { left: 50%; animation-delay: 1.2s; }
+
+.water.w1 { left: 45%; animation-delay: 0.3s; }
+.water.w2 { left: 55%; animation-delay: 0.9s; }
+.water.w3 { left: 50%; animation-delay: 1.5s; }
+
+@keyframes flowDown {
+  0% { top: 10%; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; top: 70%; }
+  100% { top: 90%; opacity: 0; }
+}
+
+@keyframes flowUp {
+  0% { bottom: 10%; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; bottom: 70%; }
+  100% { bottom: 90%; opacity: 0; }
 }

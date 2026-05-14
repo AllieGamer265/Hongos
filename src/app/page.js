@@ -10,11 +10,11 @@ import Image from "next/image";
 export default function Home() {
   // Estado para controlar qué páginas están volteadas y su orden de apilamiento (z-index)
   const [pages, setPages] = useState([
-    { id: 1, flipped: false, zIndex: 6 }, // Portada
-    { id: 2, flipped: false, zIndex: 5 }, // Anatomía
-    { id: 3, flipped: false, zIndex: 4 }, // Reproducción
-    { id: 4, flipped: false, zIndex: 3 }, // Rarezas (NUEVA)
-    { id: 5, flipped: false, zIndex: 2 }, // Amanita Muscaria
+    { id: 1, flipped: false, zIndex: 6 }, // Portada e Introducción
+    { id: 2, flipped: false, zIndex: 5 }, // Importancia y Reproducción
+    { id: 3, flipped: false, zIndex: 4 }, // Ciclo de Vida y Anatomía
+    { id: 4, flipped: false, zIndex: 3 }, // Partes y Rarezas
+    { id: 5, flipped: false, zIndex: 2 }, // Amanita Muscaria y Fin
   ]);
 
   // Estado para la interactividad de anatomía
@@ -26,6 +26,9 @@ export default function Home() {
   // Estado para el crecimiento del hongo
   const [isGrowing, setIsGrowing] = useState(false);
   const [growthStage, setGrowthStage] = useState(0); // 0: nada, 1: brotando, 2: maduro
+
+  // Estado para el Simulador de Simbiosis
+  const [isSymbiosisConnected, setIsSymbiosisConnected] = useState(false);
 
   // Estado para la Galería de Rarezas
   const [rareIndex, setRareIndex] = useState(0);
@@ -98,9 +101,6 @@ export default function Home() {
     
     // Simular etapas de crecimiento
     setTimeout(() => setGrowthStage(2), 2000);
-    setTimeout(() => {
-      // Opcional: resetear después de un tiempo o dejarlo ahí
-    }, 5000);
   };
 
   const resetGrowth = (e) => {
@@ -197,9 +197,9 @@ export default function Home() {
         >
           {/* Lado Frontal: Información sobre la Amanita */}
           <div className="page-side">
-            <h2>Amanita Muscaria</h2>
+            <h2 style={{ fontSize: '1.8rem' }}>Amanita Muscaria</h2>
             <div className="content-area">
-              <div style={{ position: 'relative', width: '100%', height: '220px', borderRadius: '8px', overflow: 'hidden' }}>
+              <div style={{ position: 'relative', width: '100%', height: '160px', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 10px rgba(0,0,0,0.2)' }}>
                 <Image 
                   src="/amanita_clean.png" 
                   alt="Amanita Muscaria" 
@@ -207,7 +207,7 @@ export default function Home() {
                   style={{ objectFit: 'contain' }}
                 />
               </div>
-              <div className="placeholder-text">
+              <div className="placeholder-text" style={{ background: 'rgba(165, 42, 42, 0.05)', border: '1px solid rgba(165, 42, 42, 0.1)' }}>
                 <p>La <strong>Amanita Muscaria</strong> es el hongo más icónico del mundo.</p>
                 <p style={{ fontSize: '0.9rem', color: '#666' }}>Su color rojo brillante con puntos blancos sirve como advertencia en la naturaleza.</p>
               </div>
@@ -237,14 +237,47 @@ export default function Home() {
         </div>
 
         {/* ==========================================
-            PÁGINA 4: Galería de Rarezas (NUEVA)
+            PÁGINA 4: Detalles de Anatomía & Rarezas
             ========================================== */}
         <div 
           className={`page ${pages[3].flipped ? 'flipped' : ''}`} 
           style={{ zIndex: pages[3].zIndex }}
         >
-          {/* Lado Frontal: Lista de Rarezas */}
+          {/* Lado Frontal: Explicación Dinámica de las Funciones */}
           <div className="page-side">
+            <h2>Partes de los hongos</h2>
+            <div className="content-area">
+              <div className="info-display">
+                {selectedPart ? (
+                  <>
+                    <h3>{anatomyInfo[selectedPart].title}</h3>
+                    <p>{anatomyInfo[selectedPart].desc}</p>
+                    <button 
+                      onClick={(e) => { e.stopPropagation(); setSelectedPart(null); }}
+                      className="no-flip"
+                      style={{ 
+                        marginTop: '20px', 
+                        padding: '5px 15px', 
+                        background: 'none', 
+                        border: '1px solid var(--accent-color)',
+                        color: 'var(--accent-color)',
+                        borderRadius: '4px',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      Volver a la lista
+                    </button>
+                  </>
+                ) : (
+                  <div className="empty-info">
+                    <p>Selecciona una parte en el diagrama anterior para investigar su función.</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          {/* Lado Posterior: Galería de Rarezas */}
+          <div className="page-side back">
             <h2>Rarezas del Mundo</h2>
             <div className="content-area">
               <div className="rare-gallery-container">
@@ -273,7 +306,6 @@ export default function Home() {
                       fill
                       style={{ objectFit: 'cover' }}
                       onError={(e) => {
-                        // Si no encuentra la imagen, mostramos un estilo de respaldo
                         e.target.style.display = 'none';
                       }}
                     />
@@ -306,66 +338,17 @@ export default function Home() {
               </div>
             </div>
           </div>
-          {/* Lado Posterior: Curiosidades Médicas */}
-          <div className="page-side back">
-            <h2>Importancia</h2>
-            <div className="content-area">
-              <div className="importance-item">
-                <div className="importance-icon">💊</div>
-                <div>
-                  <h4>Medicina</h4>
-                  <p>Muchos hongos producen compuestos que usamos como antibióticos, como la penicilina.</p>
-                </div>
-              </div>
-              <div className="importance-item">
-                <div className="importance-icon">♻️</div>
-                <div>
-                  <h4>Reciclaje</h4>
-                  <p>Sin ellos, las hojas y ramas muertas llenarían el mundo. Son los mejores recicladores de la Tierra.</p>
-                </div>
-              </div>
-              <div className="importance-item">
-                <div className="importance-icon">🌲</div>
-                <div>
-                  <h4>Simbiosis</h4>
-                  <p>Ayudan a las raíces de los árboles a absorber agua, a cambio de un poco de azúcar.</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* ==========================================
-            PÁGINA 3: Reproducción y Curiosidades
+            PÁGINA 3: Ciclo de Vida & Anatomía
             ========================================== */}
         <div 
           className={`page ${pages[2].flipped ? 'flipped' : ''}`} 
           style={{ zIndex: pages[2].zIndex }}
         >
-          {/* Lado Frontal: Ciclos de Reproducción */}
+          {/* Lado Frontal: Ciclo de Vida Interactivo */}
           <div className="page-side">
-            <h2>Reproducción</h2>
-            <div className="content-area">
-              <div className="reproduction-container">
-                <div className="reproduction-column">
-                  <h3 className="reproduction-title">Sexual</h3>
-                  <p className="reproduction-text">
-                    Ocurre cuando dos hifas se unen y comparten la misma célula. Al combinarse, crean un <strong>cigoto</strong> que da origen a las <strong>esporas</strong>. Estas se esparcen por el ambiente para dar vida a nuevos honguitos.
-                  </p>
-                </div>
-                <div style={{ width: '1px', background: 'rgba(0,0,0,0.1)' }}></div>
-                <div className="reproduction-column">
-                  <h3 className="reproduction-title">Asexual</h3>
-                  <p className="reproduction-text">
-                    No requiere de dos individuos; una sola célula se separa para crear <strong>copias idénticas</strong> del progenitor. A diferencia de la sexual donde cada hongo es único, aquí son clones exactos.
-                  </p>
-                </div>
-              </div>
-              
-            </div>
-          </div>
-          {/* Lado Posterior: Datos Curiosos e Interacción de Crecimiento */}
-          <div className="page-side back">
             <h2>Ciclo de Vida</h2>
             <div className="content-area">
               <p style={{ fontSize: '1rem', color: '#666', fontStyle: 'italic', textAlign: 'center' }}>
@@ -407,25 +390,16 @@ export default function Home() {
                 )}
               </div>
 
-              <div className="curiosidad-box">
+              <div className="curiosidad-box" style={{ marginTop: '20px' }}>
                 <h4 style={{ color: 'var(--accent-color)', marginBottom: '5px' }}>¿Sabías que?</h4>
                 <p style={{ fontSize: '0.9rem', margin: 0 }}>
-                  El micelio puede extenderse kilómetros bajo tierra. El hongo que vemos es solo el "fruto" que aparece para soltar semillas.
+                  El micelio puede extenderse kilómetros bajo tierra. El hongo que vemos es solo el "sombrero" que aparece para soltar semillas.
                 </p>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* ==========================================
-            PÁGINA 2: Anatomía del Hongo
-            ========================================== */}
-        <div 
-          className={`page ${pages[1].flipped ? 'flipped' : ''}`} 
-          style={{ zIndex: pages[1].zIndex }}
-        >
-          {/* Lado Frontal: Diagrama Interactivo */}
-          <div className="page-side">
+          {/* Lado Posterior: Diagrama de Anatomía */}
+          <div className="page-side back">
             <h2>Anatomía Detallada</h2>
             <div className="content-area">
               <div className="diagram-container" style={{ height: '420px', background: 'none' }}>
@@ -459,39 +433,105 @@ export default function Home() {
                 <span className="diagram-label" onClick={(e) => { e.stopPropagation(); setSelectedPart("Micelio"); }} style={{ top: '92%', left: '50%', transform: 'translateX(-50%)' }}>Micelio</span>
               </div>
               <p style={{ textAlign: 'center', fontSize: '0.9rem', color: '#888', fontStyle: 'italic' }}>
-                * Haz clic en las etiquetas para ver detalles al reverso
+                * Haz clic en las etiquetas para ver detalles en la siguiente página
               </p>
             </div>
           </div>
-          {/* Lado Posterior: Explicación Dinámica de las Funciones */}
-          <div className="page-side back">
-            <h2>Partes de los hongos</h2>
+        </div>
+
+        {/* ==========================================
+            PÁGINA 2: Simbiosis (Amanita) & Espacio de Texto
+            ========================================== */}
+        <div 
+          className={`page ${pages[1].flipped ? 'flipped' : ''}`} 
+          style={{ zIndex: pages[1].zIndex }}
+        >
+          {/* Lado Frontal: Simulador de Simbiosis */}
+          <div className="page-side">
+            <h2>[TÍTULO DE LA SIMBIOSIS]</h2>
             <div className="content-area">
-              <div className="info-display">
-                {selectedPart ? (
-                  <>
-                    <h3>{anatomyInfo[selectedPart].title}</h3>
-                    <p>{anatomyInfo[selectedPart].desc}</p>
-                    <button 
-                      onClick={(e) => { e.stopPropagation(); setSelectedPart(null); }}
-                      style={{ 
-                        marginTop: '20px', 
-                        padding: '5px 15px', 
-                        background: 'none', 
-                        border: '1px solid var(--accent-color)',
-                        color: 'var(--accent-color)',
-                        borderRadius: '4px',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      Volver a la lista
-                    </button>
-                  </>
-                ) : (
-                  <div className="empty-info">
-                    <p>Selecciona una parte en el diagrama para investigar su función.</p>
+              <p style={{ fontSize: '0.9rem', color: '#666', fontStyle: 'italic', textAlign: 'center' }}>
+                [INSTRUCCIÓN PARA EL USUARIO AQUÍ]
+              </p>
+              
+              <div className={`symbiosis-container ${isSymbiosisConnected ? 'connected' : ''}`}>
+                <div className="underground-scene">
+                  
+                  {/* Árbol (Pino/Abedul) */}
+                  <div className="tree-roots-zone">
+                    <div className="zone-label">[ÁRBOL]</div>
+                    <div className="root-main"></div>
+                    <div className="root-branch r1"></div>
+                    <div className="root-branch r2"></div>
+                    
+                    {/* Partículas de Azúcar (bajan) */}
+                    {isSymbiosisConnected && (
+                      <>
+                        <div className="particle sugar p1"></div>
+                        <div className="particle sugar p2"></div>
+                        <div className="particle sugar p3"></div>
+                      </>
+                    )}
                   </div>
-                )}
+
+                  {/* Micelio (Amanita) */}
+                  <div className="fungus-mycelium-zone">
+                    <div className="zone-label">[AMANITA]</div>
+                    <div className="mycelium-main"></div>
+                    <div className="mycelium-branch m1"></div>
+                    <div className="mycelium-branch m2"></div>
+                    
+                    {/* Partículas de Agua/Minerales (suben) */}
+                    {isSymbiosisConnected && (
+                      <>
+                        <div className="particle water w1"></div>
+                        <div className="particle water w2"></div>
+                        <div className="particle water w3"></div>
+                      </>
+                    )}
+                  </div>
+                  
+                  {/* Zona de conexión central */}
+                  <div className="connection-core">
+                    {isSymbiosisConnected && <div className="glow-pulse"></div>}
+                  </div>
+
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '15px' }}>
+                <button 
+                  className={`interact-btn no-flip ${isSymbiosisConnected ? 'active' : ''}`}
+                  onClick={(e) => { e.stopPropagation(); setIsSymbiosisConnected(!isSymbiosisConnected); }}
+                  style={{ position: 'relative', zIndex: 100 }}
+                >
+                  {isSymbiosisConnected ? '⚡ [BOTÓN: DESCONECTAR]' : '🌱 [BOTÓN: CONECTAR]'}
+                </button>
+              </div>
+
+              {isSymbiosisConnected && (
+                <div className="curiosidad-box" style={{ marginTop: '10px' }}>
+                  <h4 style={{ color: 'var(--accent-color)', marginBottom: '5px' }}>[TÍTULO DE ÉXITO]</h4>
+                  <p style={{ fontSize: '0.85rem', margin: 0 }}>
+                    [TEXTO EXPLICATIVO SOBRE EL INTERCAMBIO DE NUTRIENTES AQUÍ]
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+          {/* Lado Posterior: Espacio Libre para Textos */}
+          <div className="page-side back">
+            <h2>[TÍTULO DE SECCIÓN TRASERA]</h2>
+            <div className="content-area">
+              <div style={{ padding: '15px', background: 'rgba(0,0,0,0.03)', borderRadius: '8px', border: '1px dashed #ccc', height: '100%' }}>
+                <h3 style={{ color: '#555', marginBottom: '10px' }}>[SUBTÍTULO AQUÍ]</h3>
+                <p style={{ color: '#777', lineHeight: '1.6' }}>
+                  [PÁRRAFO DE INFORMACIÓN 1: Aquí puedes poner detalles sobre cómo se reproduce la Amanita o dónde crece]
+                </p>
+                <br/>
+                <p style={{ color: '#777', lineHeight: '1.6' }}>
+                  [PÁRRAFO DE INFORMACIÓN 2: Más texto libre para que agregues tu investigación]
+                </p>
               </div>
             </div>
           </div>
