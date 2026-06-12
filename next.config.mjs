@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === 'production';
 const nextConfig = {
+  output: 'export',
+  basePath: isProd ? '/Hongos' : '',
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -10,7 +14,6 @@ const nextConfig = {
       },
     ],
   },
-
 };
 
 export default nextConfig;
