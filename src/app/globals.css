@@ -93,7 +93,20 @@ h1, h2 {
   display: flex;
   flex-direction: column;
   border-radius: 0 5px 5px 0;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar for book pages */
+.page-side::-webkit-scrollbar {
+  width: 6px;
+}
+.page-side::-webkit-scrollbar-track {
+  background: transparent;
+}
+.page-side::-webkit-scrollbar-thumb {
+  background-color: rgba(90, 62, 43, 0.4);
+  border-radius: 10px;
 }
 
 /* Lado trasero de la página (necesita estar rotado 180 grados) */
