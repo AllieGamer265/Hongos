@@ -299,40 +299,6 @@ export default function Home() {
                   <p style={{ fontSize: '0.95rem', color: '#555', lineHeight: '1.4' }}>
                     {rareSpecies[rareIndex].desc}
                   </p>
-                  
-                  <div className="rare-visual-container" style={{ 
-                    position: 'relative',
-                    width: '100%',
-                    height: '180px',
-                    borderRadius: '8px',
-                    overflow: 'hidden',
-                    marginTop: '10px',
-                    background: `linear-gradient(135deg, ${rareSpecies[rareIndex].color}22, ${rareSpecies[rareIndex].color}44)`,
-                    border: `1px solid ${rareSpecies[rareIndex].color}44`
-                  }}>
-                    <Image 
-                      src={rareSpecies[rareIndex].image}
-                      alt={rareSpecies[rareIndex].name}
-                      fill
-                      style={{ objectFit: 'cover' }}
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                      }}
-                    />
-                    <div style={{ 
-                      position: 'absolute', 
-                      inset: 0, 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center',
-                      zIndex: -1,
-                      color: rareSpecies[rareIndex].color,
-                      fontSize: '0.8rem',
-                      fontWeight: 'bold'
-                    }}>
-                      [ Sin Imagen ]
-                    </div>
-                  </div>
                 </div>
 
                 <div className="rare-controls">
