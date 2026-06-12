@@ -201,7 +201,7 @@ export default function Home() {
             <div className="content-area" style={{ minHeight: 0 }}>
               <div style={{ position: 'relative', width: '100%', height: '160px', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 10px rgba(0,0,0,0.2)', flexShrink: 0 }}>
                 <Image 
-                  src="/amanita_clean.png" 
+                  src={`${process.env.NODE_ENV === 'production' ? '/Hongos' : ''}/amanita_clean.png`} 
                   alt="Amanita Muscaria" 
                   fill
                   style={{ objectFit: 'contain' }}
@@ -380,7 +380,7 @@ export default function Home() {
             <div className="content-area">
               <div className="diagram-container" style={{ height: '420px', background: 'none' }}>
                 <Image 
-                  src="/anatomy.png" 
+                  src={`${process.env.NODE_ENV === 'production' ? '/Hongos' : ''}/anatomy.png`} 
                   alt="Anatomía del hongo" 
                   fill
                   style={{ objectFit: 'contain', borderRadius: '8px' }}
@@ -525,7 +525,7 @@ export default function Home() {
           {/* Lado Frontal: Portada Artística */}
           <div className="page-side cover" style={{ padding: 0, position: 'relative' }}>
             <Image 
-              src="/cover_v2.png" 
+              src={`${process.env.NODE_ENV === 'production' ? '/Hongos' : ''}/cover_v2.png`} 
               alt="Portada Los Hongos" 
               fill
               style={{ objectFit: 'cover' }}
