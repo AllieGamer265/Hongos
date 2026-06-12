@@ -28,7 +28,9 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 40px 0;
   -webkit-font-smoothing: antialiased;
   transition: background-color 1s ease;
 }
@@ -47,8 +49,10 @@ h1, h2 {
 .book-wrapper {
   perspective: 2000px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 30px;
 }
 
 /* El libro físico */
@@ -241,8 +245,6 @@ h1, h2 {
    ========================================== */
 
 .nav-controls {
-  position: fixed;
-  bottom: 15px;
   display: flex;
   gap: 40px;
   z-index: 1000;
