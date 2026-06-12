@@ -198,8 +198,8 @@ export default function Home() {
           {/* Lado Frontal: Información sobre la Amanita */}
           <div className="page-side">
             <h2 style={{ fontSize: '1.8rem' }}>Amanita Muscaria</h2>
-            <div className="content-area">
-              <div style={{ position: 'relative', width: '100%', height: '160px', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 10px rgba(0,0,0,0.2)' }}>
+            <div className="content-area" style={{ minHeight: 0 }}>
+              <div style={{ position: 'relative', width: '100%', height: '160px', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 10px rgba(0,0,0,0.2)', flexShrink: 0 }}>
                 <Image 
                   src="/amanita_clean.png" 
                   alt="Amanita Muscaria" 
@@ -207,9 +207,19 @@ export default function Home() {
                   style={{ objectFit: 'contain' }}
                 />
               </div>
-              <div className="placeholder-text" style={{ background: 'rgba(165, 42, 42, 0.05)', border: '1px solid rgba(165, 42, 42, 0.1)' }}>
+              <div className="placeholder-text no-flip" style={{ background: 'rgba(165, 42, 42, 0.05)', border: '1px solid rgba(165, 42, 42, 0.1)', flex: 1, display: 'flex', flexDirection: 'column', gap: '8px', overflowY: 'auto', paddingBottom: '20px', paddingRight: '5px', minHeight: 0 }}>
                 <p>La <strong>Amanita Muscaria</strong> es el hongo más icónico del mundo.</p>
                 <p style={{ fontSize: '0.9rem', color: '#666' }}>Su color rojo brillante con puntos blancos sirve como advertencia en la naturaleza.</p>
+                
+                <div style={{ marginTop: 'auto', padding: '10px', background: 'rgba(255, 255, 255, 0.7)', borderRadius: '6px', borderLeft: '3px solid #ff4d4d' }}>
+                  <h4 style={{ color: '#a52a2a', margin: '0 0 5px 0', fontSize: '0.9rem' }}>🍄 ¿El Hongo de Mario Bros?</h4>
+                  <p style={{ margin: 0, fontSize: '0.85rem', color: '#555', lineHeight: '1.4' }}>¡Exacto! Es el mismo hongo que hace crecer a Mario y la casita típica de los Pitufos. Básicamente es la súper estrella de los hongos.</p>
+                </div>
+                
+                <div style={{ padding: '10px', background: 'rgba(255, 255, 255, 0.7)', borderRadius: '6px', borderLeft: '3px solid #ff4d4d' }}>
+                  <h4 style={{ color: '#a52a2a', margin: '0 0 5px 0', fontSize: '0.9rem' }}>❄️ ¿Qué son los puntitos blancos?</h4>
+                  <p style={{ margin: 0, fontSize: '0.85rem', color: '#555', lineHeight: '1.4' }}>Cuando nacen parecen un huevito blanco. Al crecer, esa "cáscara" se rompe y los pedacitos se quedan pegados al sombrero rojo. ¡Como si tuviera pecas!</p>
+                </div>
               </div>
             </div>
           </div>
@@ -448,10 +458,10 @@ export default function Home() {
         >
           {/* Lado Frontal: Simulador de Simbiosis */}
           <div className="page-side">
-            <h2>[TÍTULO DE LA SIMBIOSIS]</h2>
+            <h2>El Internet del Bosque 🌳🍄</h2>
             <div className="content-area">
               <p style={{ fontSize: '0.9rem', color: '#666', fontStyle: 'italic', textAlign: 'center' }}>
-                [INSTRUCCIÓN PARA EL USUARIO AQUÍ]
+                ¡Toca el botón para enchufar el hongo al árbol y ver cómo se pasan la comida!
               </p>
               
               <div className={`symbiosis-container ${isSymbiosisConnected ? 'connected' : ''}`}>
@@ -502,18 +512,19 @@ export default function Home() {
               <div style={{ display: 'flex', justifyContent: 'center', marginTop: '15px' }}>
                 <button 
                   className={`interact-btn no-flip ${isSymbiosisConnected ? 'active' : ''}`}
+                  onPointerDown={(e) => { e.stopPropagation(); setIsSymbiosisConnected(!isSymbiosisConnected); }}
                   onClick={(e) => { e.stopPropagation(); setIsSymbiosisConnected(!isSymbiosisConnected); }}
-                  style={{ position: 'relative', zIndex: 100 }}
+                  style={{ position: 'relative', zIndex: 9999, transform: 'translateZ(50px)' }}
                 >
-                  {isSymbiosisConnected ? '⚡ [BOTÓN: DESCONECTAR]' : '🌱 [BOTÓN: CONECTAR]'}
+                  {isSymbiosisConnected ? '⚡ Desconectar Red' : '🌱 Conectar Micelio'}
                 </button>
               </div>
 
               {isSymbiosisConnected && (
                 <div className="curiosidad-box" style={{ marginTop: '10px' }}>
-                  <h4 style={{ color: 'var(--accent-color)', marginBottom: '5px' }}>[TÍTULO DE ÉXITO]</h4>
+                  <h4 style={{ color: 'var(--accent-color)', marginBottom: '5px' }}>¡Conexión Establecida! ⚡</h4>
                   <p style={{ fontSize: '0.85rem', margin: 0 }}>
-                    [TEXTO EXPLICATIVO SOBRE EL INTERCAMBIO DE NUTRIENTES AQUÍ]
+                    ¡Es un trabajo en equipo! El árbol hace fotosíntesis y le regala <strong>azúcares</strong> al hongo (¡su postre favorito!). A cambio, el hongo actúa como una esponja gigante y le pasa <strong>agua y minerales</strong> al árbol. ¡Mejores amigos por siempre!
                   </p>
                 </div>
               )}
@@ -521,16 +532,17 @@ export default function Home() {
           </div>
           {/* Lado Posterior: Espacio Libre para Textos */}
           <div className="page-side back">
-            <h2>[TÍTULO DE SECCIÓN TRASERA]</h2>
+            <h2>Datos Random 🍄✨</h2>
             <div className="content-area">
-              <div style={{ padding: '15px', background: 'rgba(0,0,0,0.03)', borderRadius: '8px', border: '1px dashed #ccc', height: '100%' }}>
-                <h3 style={{ color: '#555', marginBottom: '10px' }}>[SUBTÍTULO AQUÍ]</h3>
-                <p style={{ color: '#777', lineHeight: '1.6' }}>
-                  [PÁRRAFO DE INFORMACIÓN 1: Aquí puedes poner detalles sobre cómo se reproduce la Amanita o dónde crece]
+              <div style={{ padding: '15px', background: 'rgba(0,0,0,0.03)', borderRadius: '8px', border: '1px solid #ccc', height: '100%' }}>
+                <h3 style={{ color: '#555', marginBottom: '10px' }}>¿Dónde se esconde? 🌲</h3>
+                <p style={{ color: '#777', lineHeight: '1.6', fontSize: '0.9rem' }}>
+                  A la <strong>Amanita</strong> le encanta el frío y vivir de arrimada con los árboles (especialmente pinos). ¡Hacen equipo bajo la tierra donde nadie los ve! Si ves un bosque de pinos en un lugar frío, seguro hay una cerca.
                 </p>
                 <br/>
-                <p style={{ color: '#777', lineHeight: '1.6' }}>
-                  [PÁRRAFO DE INFORMACIÓN 2: Más texto libre para que agregues tu investigación]
+                <h3 style={{ color: '#555', marginBottom: '10px' }}>¡Mira pero no toques! 🚫</h3>
+                <p style={{ color: '#777', lineHeight: '1.6', fontSize: '0.9rem' }}>
+                  Sí, es el hongo de Mario Bros, pero en la vida real <strong>¡es súper tóxico!</strong> Te puede dar un dolor de barriga terrible o alucinar feo. Así que, si te encuentras uno, ¡tómale una foto pero ni se te ocurra morderlo!
                 </p>
               </div>
             </div>

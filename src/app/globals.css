@@ -687,7 +687,7 @@ h1, h2 {
 }
 
 /* ==========================================
-   SIMULADOR DE SIMBIOSIS (AMANITA)
+   SIMULADOR DE SIMBIOSIS (AMANITA) - PREMIUM
    ========================================== */
 
 .symbiosis-container {
@@ -695,12 +695,19 @@ h1, h2 {
   flex-direction: column;
   position: relative;
   height: 250px;
-  background: linear-gradient(to bottom, #3e2a1e 0%, #1a120c 100%);
-  border-radius: 8px;
+  /* Fondo radial para simular un ambiente subterráneo misterioso */
+  background: radial-gradient(circle at center, #3e2a1e 0%, #1a1009 100%);
+  border-radius: 12px;
   overflow: hidden;
   margin-top: 10px;
-  border: 2px solid #5a4231;
-  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+  border: 2px solid rgba(165, 42, 42, 0.4);
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.9), 0 5px 15px rgba(0,0,0,0.3);
+  transition: all 1s ease;
+}
+
+.symbiosis-container.connected {
+  border-color: rgba(0, 255, 255, 0.5);
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.9), 0 0 20px rgba(0, 255, 255, 0.2);
 }
 
 .underground-scene {
@@ -708,6 +715,16 @@ h1, h2 {
   width: 100%;
   height: 100%;
   position: relative;
+}
+
+/* Efecto sutil de partículas/tierra de fondo */
+.underground-scene::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 15px 15px;
+  pointer-events: none;
 }
 
 .tree-roots-zone, .fungus-mycelium-zone {
@@ -718,7 +735,7 @@ h1, h2 {
 }
 
 .tree-roots-zone {
-  border-right: 2px dashed rgba(255,255,255,0.1);
+  border-right: 2px dashed rgba(255, 215, 0, 0.1);
 }
 
 .zone-label {
@@ -730,57 +747,78 @@ h1, h2 {
   letter-spacing: 1px;
 }
 
-/* Raíces del Árbol */
+/* Raíces del Árbol (Textura Orgánica) */
 .root-main {
   position: absolute;
   top: 0;
-  width: 8px;
-  height: 40%;
-  background-color: #8b5a2b;
-  border-radius: 0 0 4px 4px;
-  transition: height 1.5s ease-in-out;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 20%;
+  background: linear-gradient(to bottom, #5d3a21, #3e2412);
+  border-radius: 0 0 8px 8px;
+  transition: height 1.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 1s ease;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+  z-index: 2;
 }
 .root-branch {
   position: absolute;
-  width: 4px;
-  background-color: #8b5a2b;
+  width: 8px;
+  background: linear-gradient(to bottom right, #5d3a21, #3e2412);
   border-radius: 4px;
-  transition: height 1.5s ease-in-out, opacity 1s;
-  opacity: 0.6;
+  transition: height 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.5s, opacity 1s;
+  opacity: 0;
+  z-index: 1;
+  box-shadow: -1px 0 3px rgba(0,0,0,0.4);
 }
-.root-branch.r1 { top: 20%; left: 30%; height: 20%; transform: rotate(20deg); }
-.root-branch.r2 { top: 30%; left: 60%; height: 25%; transform: rotate(-15deg); }
+.root-branch.r1 { top: 15%; left: 35%; height: 0%; transform: rotate(25deg); }
+.root-branch.r2 { top: 25%; left: 55%; height: 0%; transform: rotate(-20deg); }
 
-/* Micelio del Hongo */
+/* Micelio del Hongo (Bioluminiscencia) */
 .mycelium-main {
   position: absolute;
   bottom: 0;
-  width: 5px;
-  height: 30%;
-  background-color: #fdf6e3;
-  border-radius: 4px 4px 0 0;
-  transition: height 1.5s ease-in-out;
-  box-shadow: 0 0 5px rgba(253,246,227,0.3);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 15%;
+  background: linear-gradient(to top, #ffffff, #e0f7fa);
+  border-radius: 8px 8px 0 0;
+  transition: height 1.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 1.5s ease;
+  box-shadow: 0 0 10px rgba(224, 247, 250, 0.4);
+  z-index: 2;
 }
 .mycelium-branch {
   position: absolute;
-  width: 2px;
-  background-color: #fdf6e3;
-  border-radius: 2px;
-  transition: height 1.5s ease-in-out, opacity 1s;
-  opacity: 0.6;
+  width: 5px;
+  background: linear-gradient(to top right, #ffffff, #e0f7fa);
+  border-radius: 3px;
+  transition: height 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.5s, opacity 1s, box-shadow 1s;
+  opacity: 0;
+  z-index: 1;
 }
-.mycelium-branch.m1 { bottom: 15%; left: 40%; height: 20%; transform: rotate(-25deg); }
-.mycelium-branch.m2 { bottom: 20%; left: 60%; height: 25%; transform: rotate(20deg); }
+.mycelium-branch.m1 { bottom: 10%; left: 35%; height: 0%; transform: rotate(-30deg); }
+.mycelium-branch.m2 { bottom: 15%; left: 55%; height: 0%; transform: rotate(25deg); }
 
 /* Estado Conectado */
-.symbiosis-container.connected .root-main { height: 70%; }
-.symbiosis-container.connected .root-branch.r1 { height: 40%; opacity: 1; }
-.symbiosis-container.connected .root-branch.r2 { height: 45%; opacity: 1; }
+.symbiosis-container.connected .root-main { 
+  height: 60%; 
+  background: linear-gradient(to bottom, #7a4f2f, #5d3a21);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); /* Resplandor dorado */
+}
+.symbiosis-container.connected .root-branch.r1 { height: 35%; opacity: 1; }
+.symbiosis-container.connected .root-branch.r2 { height: 40%; opacity: 1; }
 
-.symbiosis-container.connected .mycelium-main { height: 60%; }
-.symbiosis-container.connected .mycelium-branch.m1 { height: 45%; opacity: 1; }
-.symbiosis-container.connected .mycelium-branch.m2 { height: 50%; opacity: 1; }
+.symbiosis-container.connected .mycelium-main { 
+  height: 50%; 
+  background: linear-gradient(to top, #ffffff, #00ffff); 
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.4); 
+}
+.symbiosis-container.connected .mycelium-branch {
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+}
+.symbiosis-container.connected .mycelium-branch.m1 { height: 40%; opacity: 1; }
+.symbiosis-container.connected .mycelium-branch.m2 { height: 45%; opacity: 1; }
 
 /* Centro de conexión */
 .connection-core {
@@ -795,53 +833,94 @@ h1, h2 {
 .glow-pulse {
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+  background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(0,255,255,0) 70%);
   border-radius: 50%;
-  animation: pulseGlow 2s infinite;
+  animation: pulseGlow 2s infinite ease-in-out;
+  box-shadow: 0 0 20px rgba(0,255,255,0.5);
 }
 
 @keyframes pulseGlow {
-  0% { transform: scale(0.8); opacity: 0.5; }
-  50% { transform: scale(1.5); opacity: 1; }
-  100% { transform: scale(0.8); opacity: 0.5; }
+  0% { transform: scale(0.8); opacity: 0.6; }
+  50% { transform: scale(1.6); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0.6; }
 }
 
-/* Partículas */
+/* Partículas Premium */
 .particle {
   position: absolute;
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   opacity: 0;
   z-index: 5;
 }
 
 .particle.sugar {
-  background-color: #ffd700; /* Dorado para azúcar */
-  box-shadow: 0 0 8px #ffd700;
-  animation: flowDown 2s infinite linear;
+  background-color: #fff9c4; 
+  box-shadow: 0 0 12px 4px rgba(255, 215, 0, 0.9);
+  animation: flowDown 2.5s infinite ease-in-out;
 }
 
 .particle.water {
-  background-color: #00bfff; /* Azul para agua/minerales */
-  box-shadow: 0 0 8px #00bfff;
-  animation: flowUp 2s infinite linear;
+  background-color: #e0ffff; 
+  box-shadow: 0 0 12px 4px rgba(0, 255, 255, 0.9);
+  animation: flowUp 2.5s infinite ease-in-out;
 }
 
 /* Animaciones escalonadas para partículas */
 .sugar.p1 { left: 45%; animation-delay: 0s; }
-.sugar.p2 { left: 55%; animation-delay: 0.6s; }
-.sugar.p3 { left: 50%; animation-delay: 1.2s; }
+.sugar.p2 { left: 55%; animation-delay: 0.8s; }
+.sugar.p3 { left: 50%; animation-delay: 1.6s; }
 
-.water.w1 { left: 45%; animation-delay: 0.3s; }
-.water.w2 { left: 55%; animation-delay: 0.9s; }
-.water.w3 { left: 50%; animation-delay: 1.5s; }
+.water.w1 { left: 45%; animation-delay: 0.4s; }
+.water.w2 { left: 55%; animation-delay: 1.2s; }
+.water.w3 { left: 50%; animation-delay: 2.0s; }
 
 @keyframes flowDown {
-  0% { top: 10%; opacity: 0; }
-  20% { opacity: 1; }
-  80% { opacity: 1; top: 70%; }
-  100% { top: 90%; opacity: 0; }
+  0% { top: 10%; opacity: 0; transform: scale(0.5); }
+  20% { opacity: 1; transform: scale(1.2); }
+  80% { opacity: 1; top: 70%; transform: scale(1.2); }
+  100% { top: 90%; opacity: 0; transform: scale(0.5); }
+}
+
+@keyframes flowUp {
+  0% { bottom: 10%; opacity: 0; transform: scale(0.5); }
+  20% { opacity: 1; transform: scale(1.2); }
+  80% { opacity: 1; bottom: 70%; transform: scale(1.2); }
+  100% { bottom: 90%; opacity: 0; transform: scale(0.5); }
+}
+
+/* Botón Interactivo Premium */
+.interact-btn {
+  background: rgba(165, 42, 42, 0.8);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.interact-btn:hover {
+  background: rgba(165, 42, 42, 1);
+  transform: translateZ(55px) scale(1.05) !important;
+  box-shadow: 0 6px 20px rgba(165, 42, 42, 0.4);
+}
+
+.interact-btn.active {
+  background: rgba(0, 139, 139, 0.8);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+}
+.interact-btn.active:hover {
+  background: rgba(0, 139, 139, 1);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
 }
 
 @keyframes flowUp {
