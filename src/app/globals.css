@@ -59,9 +59,8 @@ h1, h2 {
 
 /* El libro físico */
 .book {
-  --bw: min(85vw, 450px);
-  width: var(--bw);
-  height: min(calc(var(--bw) * 1.333), 90dvh, 600px);
+  width: min(85vw, 450px);
+  height: min(calc(85vw * 1.333), 90dvh, 600px);
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.1s ease-out;
@@ -349,42 +348,50 @@ h1, h2 {
 /* Tablets y laptops pequeñas */
 @media (max-width: 1024px) {
   body {
-    padding: 16px 0;
+    padding: 14px 0;
+  }
+
+  .book-wrapper {
+    gap: 20px;
   }
 
   .page-side {
-    padding: 24px 20px;
+    padding: 22px 18px;
   }
 
   .page-side h2 {
     font-size: 1.4rem;
+    margin-block: 0 0.3em;
   }
 
   .book {
-    --bw: min(80vw, 450px);
-    width: var(--bw);
-    height: min(calc(var(--bw) * 1.333), 90dvh, 600px);
+    width: min(80vw, 450px);
+    height: min(calc(80vw * 1.333), 92dvh, 600px);
   }
 }
 
 /* Tablets (iPad, etc) */
 @media (max-width: 768px) {
   body {
-    padding: 12px 0;
+    padding: 10px 0;
+  }
+
+  .book-wrapper {
+    gap: 14px;
   }
 
   .page-side {
-    padding: 20px 16px;
+    padding: 18px 14px;
   }
 
   .page-side h2 {
     font-size: 1.2rem;
+    margin-block: 0 0.25em;
   }
 
   .book {
-    --bw: min(85vw, 420px);
-    width: var(--bw);
-    height: min(calc(var(--bw) * 1.333), 90dvh, 560px);
+    width: min(90vw, 420px);
+    height: min(calc(90vw * 1.333), 94dvh, 560px);
   }
 
   .diagram-label {
@@ -427,27 +434,30 @@ h1, h2 {
 /* Móviles grandes / phablets */
 @media (max-width: 600px) {
   body {
-    padding: 6px 0;
+    padding: 4px 0;
+  }
+
+  .book-wrapper {
+    gap: 10px;
   }
 
   .page-side {
-    padding: 20px 14px;
+    padding: 14px 12px;
   }
 
   .page-side h2 {
-    font-size: 1.3rem;
-    margin-bottom: 4px;
+    font-size: 1.2rem;
+    margin-block: 0 0.2em;
   }
 
   .book {
-    --bw: min(95vw, 400px);
-    width: var(--bw);
-    height: min(calc(var(--bw) * 1.333), 94dvh, 540px);
+    width: min(95vw, 400px);
+    height: min(calc(95vw * 1.333), 96dvh, 540px);
   }
 
   .content-area {
-    gap: 14px;
-    margin-top: 12px;
+    gap: 10px;
+    margin-top: 8px;
   }
 
   .diagram-label {
@@ -466,77 +476,89 @@ h1, h2 {
   }
 
   .nav-controls {
-    gap: 16px;
+    gap: 14px;
   }
   .nav-btn {
-    padding: 8px 18px;
-    font-size: 0.9rem;
+    padding: 6px 14px;
+    font-size: 0.85rem;
   }
 
   .growth-stage-container {
-    min-height: 150px;
+    min-height: 130px;
   }
 
   .symbiosis-container {
-    min-height: 150px;
+    min-height: 130px;
     aspect-ratio: auto;
   }
 
   .interact-btn {
-    font-size: 0.9rem;
-    padding: 9px 16px;
+    font-size: 0.85rem;
+    padding: 7px 14px;
+    border-radius: 20px;
   }
 
   .info-display {
-    min-height: 100px;
-    padding: 14px;
+    min-height: 80px;
+    padding: 12px;
   }
-  .info-display h3 { font-size: 1.1rem; }
-  .info-display p { font-size: 1rem; }
+  .info-display h3 { font-size: 1rem; }
+  .info-display p { font-size: 0.9rem; }
 
   .rare-card {
     min-height: auto;
-    padding: 14px;
+    padding: 12px;
   }
 
-  .curiosidad-box h4 { font-size: 0.9rem; }
-  .curiosidad-box p { font-size: 0.85rem; }
+  .curiosidad-box {
+    padding: 8px;
+    margin-top: 8px;
+  }
+  .curiosidad-box h4 { font-size: 0.85rem; }
+  .curiosidad-box p { font-size: 0.8rem; }
 }
 
 /* Móviles pequeños (< 400px) */
 @media (max-width: 400px) {
+  .book-wrapper {
+    gap: 8px;
+  }
+
   .page-side {
-    padding: 16px 10px;
+    padding: 12px 8px;
   }
 
   .page-side h2 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    margin-block: 0 0.15em;
   }
 
   .book {
-    --bw: min(98vw, 340px);
-    width: var(--bw);
-    height: min(calc(var(--bw) * 1.333), 96dvh, 480px);
+    width: min(98vw, 340px);
+    height: min(calc(98vw * 1.333), 98dvh, 480px);
   }
 
   .diagram-label {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     padding: 2px 6px;
-    max-width: 80px;
+    max-width: 75px;
   }
 
   .flip-hitbox {
     width: 36px;
   }
 
+  .nav-controls {
+    gap: 10px;
+  }
   .nav-btn {
-    padding: 6px 14px;
-    font-size: 0.85rem;
+    padding: 5px 12px;
+    font-size: 0.8rem;
   }
 
   .cover {
-    border-width: 6px !important;
-    outline-offset: -4px !important;
+    border-width: 4px !important;
+    outline-offset: -3px !important;
   }
 }
 
@@ -551,9 +573,8 @@ h1, h2 {
   }
 
   .book {
-    --bw: min(55vh, 70vw, 400px);
-    width: var(--bw);
-    height: min(calc(var(--bw) * 1.333), 85dvh, 500px);
+    width: min(55vh, 70vw, 400px);
+    height: min(calc(min(55vh, 70vw, 400px) * 1.333), 85dvh, 500px);
   }
 
   .page-side {
