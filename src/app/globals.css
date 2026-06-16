@@ -28,12 +28,11 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100dvh;
-  overflow-x: clip;
+  margin: 0;
+  overflow-x: hidden;
   overflow-y: auto;
   padding: 20px 0;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 1s ease;
-  touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -373,11 +372,11 @@ h1, h2 {
 /* Tablets (iPad, etc) */
 @media (max-width: 768px) {
   body {
-    padding: 10px 0;
+    padding: 0;
   }
 
   .book-wrapper {
-    gap: 14px;
+    gap: 10px;
   }
 
   .page-side {
@@ -390,13 +389,13 @@ h1, h2 {
   }
 
   .book {
-    width: min(90vw, 420px);
-    height: min(calc(90vw * 1.333), 94dvh, 560px);
+    width: min(92vw, 420px);
+    height: min(calc(92vw * 1.333), 96dvh, 560px);
   }
 
   .diagram-label {
     padding: 3px 7px;
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     white-space: normal;
     max-width: 80px;
   }
@@ -406,7 +405,7 @@ h1, h2 {
   }
 
   .flip-hitbox {
-    width: 44px;
+    width: 50px;
   }
 
   .interact-btn {
@@ -419,113 +418,30 @@ h1, h2 {
   }
 
   .info-display {
-    min-height: 100px;
     padding: 14px;
   }
   .info-display h3 { font-size: 1.1rem; }
   .info-display p { font-size: 0.95rem; }
 
   .rare-card {
-    min-height: 180px;
     padding: 14px;
   }
 }
 
-/* Móviles grandes / phablets */
+/* Móviles */
 @media (max-width: 600px) {
   body {
-    padding: 4px 0;
+    padding: 0;
+    min-height: 100dvh;
   }
 
   .book-wrapper {
-    gap: 10px;
-  }
-
-  .page-side {
-    padding: 14px 12px;
-  }
-
-  .page-side h2 {
-    font-size: 1.2rem;
-    margin-block: 0 0.2em;
-  }
-
-  .book {
-    width: min(95vw, 400px);
-    height: min(calc(95vw * 1.333), 96dvh, 540px);
-  }
-
-  .content-area {
-    gap: 10px;
-    margin-top: 8px;
-  }
-
-  .diagram-label {
-    font-size: 0.75rem;
-    padding: 3px 8px;
-    max-width: 95px;
-    white-space: normal;
-  }
-
-  .connector {
-    display: none;
-  }
-
-  .flip-hitbox {
-    width: 44px;
-  }
-
-  .nav-controls {
-    gap: 14px;
-  }
-  .nav-btn {
-    padding: 6px 14px;
-    font-size: 0.85rem;
-  }
-
-  .growth-stage-container {
-    min-height: 130px;
-  }
-
-  .symbiosis-container {
-    min-height: 130px;
-    aspect-ratio: auto;
-  }
-
-  .interact-btn {
-    font-size: 0.85rem;
-    padding: 7px 14px;
-    border-radius: 20px;
-  }
-
-  .info-display {
-    min-height: 80px;
-    padding: 12px;
-  }
-  .info-display h3 { font-size: 1rem; }
-  .info-display p { font-size: 0.9rem; }
-
-  .rare-card {
-    min-height: auto;
-    padding: 12px;
-  }
-
-  .curiosidad-box {
-    padding: 8px;
-    margin-top: 8px;
-  }
-  .curiosidad-box h4 { font-size: 0.85rem; }
-  .curiosidad-box p { font-size: 0.8rem; }
-}
-
-/* Móviles pequeños (< 400px) */
-@media (max-width: 400px) {
-  .book-wrapper {
+    width: 100%;
     gap: 8px;
   }
 
   .page-side {
-    padding: 12px 8px;
+    padding: 14px 10px;
   }
 
   .page-side h2 {
@@ -534,92 +450,130 @@ h1, h2 {
   }
 
   .book {
-    width: min(98vw, 340px);
-    height: min(calc(98vw * 1.333), 98dvh, 480px);
-  }
-
-  .diagram-label {
-    font-size: 0.65rem;
-    padding: 2px 6px;
-    max-width: 75px;
-  }
-
-  .flip-hitbox {
-    width: 36px;
-  }
-
-  .nav-controls {
-    gap: 10px;
-  }
-  .nav-btn {
-    padding: 5px 12px;
-    font-size: 0.8rem;
-  }
-
-  .cover {
-    border-width: 4px !important;
-    outline-offset: -3px !important;
-  }
-}
-
-/* Landscape en móviles */
-@media (max-height: 500px) and (orientation: landscape) {
-  body {
-    padding: 4px 0;
-  }
-
-  .book-wrapper {
-    gap: 8px;
-  }
-
-  .book {
-    width: min(55vh, 70vw, 400px);
-    height: min(calc(min(55vh, 70vw, 400px) * 1.333), 85dvh, 500px);
-  }
-
-  .page-side {
-    padding: 8px 12px;
-  }
-
-  .page-side h2 {
-    font-size: 0.95rem;
-    margin-bottom: 4px;
+    width: 96vw;
+    height: 94dvh;
   }
 
   .content-area {
-    gap: 6px;
+    gap: 8px;
     margin-top: 6px;
   }
 
-  .growth-stage-container,
-  .symbiosis-container {
-    min-height: 90px;
+  .diagram-label {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    max-width: 80px;
+    white-space: normal;
   }
 
-  .diagram-container {
-    min-height: 90px;
+  .connector {
+    display: none;
   }
 
-  .interact-btn {
-    padding: 4px 10px;
-    font-size: 0.75rem;
-    border-radius: 20px;
+  .flip-hitbox {
+    width: 46px;
   }
 
   .nav-controls {
     gap: 12px;
   }
   .nav-btn {
-    padding: 4px 12px;
-    font-size: 0.75rem;
+    padding: 5px 14px;
+    font-size: 0.85rem;
+  }
+
+  .growth-stage-container {
+    min-height: 120px;
+    aspect-ratio: auto;
+  }
+
+  .symbiosis-container {
+    min-height: 120px;
+    aspect-ratio: auto;
+  }
+
+  .interact-btn {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+  }
+
+  .info-display {
+    padding: 10px;
+  }
+  .info-display h3 { font-size: 1rem; }
+  .info-display p { font-size: 0.9rem; }
+
+  .rare-card {
+    padding: 10px;
+  }
+
+  .curiosidad-box {
+    padding: 8px;
+    margin-top: 6px;
+  }
+  .curiosidad-box h4 { font-size: 0.85rem; }
+  .curiosidad-box p { font-size: 0.8rem; }
+}
+
+/* Landscape en móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+  body {
+    padding: 0;
+  }
+
+  .book-wrapper {
+    gap: 4px;
+  }
+
+  .book {
+    width: min(50vh, 80vw, 400px);
+    height: min(calc(min(50vh, 80vw, 400px) * 1.333), 85dvh, 500px);
+  }
+
+  .page-side {
+    padding: 6px 10px;
+  }
+
+  .page-side h2 {
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+  }
+
+  .content-area {
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  .growth-stage-container,
+  .symbiosis-container {
+    min-height: 80px;
+  }
+
+  .diagram-container {
+    min-height: 80px;
+  }
+
+  .interact-btn {
+    padding: 3px 8px;
+    font-size: 0.7rem;
+    border-radius: 16px;
+  }
+
+  .nav-controls {
+    gap: 8px;
+  }
+  .nav-btn {
+    padding: 3px 10px;
+    font-size: 0.7rem;
   }
 
   .cover {
-    border-width: 4px !important;
-    outline-offset: -3px !important;
+    border-width: 3px !important;
+    outline-offset: -2px !important;
   }
   .cover h1 {
-    font-size: 1.5rem !important;
+    font-size: 1.2rem !important;
   }
 }
 
@@ -634,95 +588,7 @@ h1, h2 {
   }
 }
 
-/* ==========================================
-   MÓVILES: MODO SCROLL VERTICAL
-   ========================================== */
-/* En móviles el libro 3D no funciona bien.
-   Convertimos a scroll vertical con páginas apiladas. */
-@media (max-width: 600px) {
-  /* Ocultar hitboxes laterales (estorban en táctil) */
-  .flip-hitbox {
-    display: none;
-  }
 
-  /* Quitar perspectiva 3D */
-  .book-wrapper {
-    perspective: none;
-    width: 100%;
-    gap: 0;
-  }
-
-  /* El libro se vuelve un contenedor scrollable vertical */
-  .book {
-    position: relative;
-    width: 100%;
-    height: auto !important;
-    max-height: none !important;
-    transform: none !important;
-    overflow: visible;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 8px;
-  }
-
-  /* Cada página ya no es absoluta, se apila verticalmente */
-  .page {
-    position: relative !important;
-    width: 100%;
-    height: auto !important;
-    transform: none !important;
-    cursor: default;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  /* Ambas caras se muestran secuencialmente como secciones */
-  .page-side {
-    position: relative !important;
-    height: auto !important;
-    backface-visibility: visible !important;
-    border-radius: 0;
-    padding: 16px !important;
-    overflow: visible;
-  }
-
-  .page-side.back {
-    transform: none !important;
-    border-radius: 0;
-    border-top: 3px solid var(--accent-color);
-  }
-
-  /* Botones de navegación: se mueven debajo */
-  .nav-controls {
-    position: relative;
-    width: 100%;
-    justify-content: center;
-    padding: 12px 0;
-    gap: 20px;
-  }
-  .nav-btn {
-    padding: 10px 24px;
-    font-size: 1rem;
-  }
-
-  /* Portada: ocupa menos espacio */
-  .cover {
-    min-height: 200px;
-    border-width: 4px !important;
-    outline-offset: -3px !important;
-  }
-
-  .cover-title-overlay {
-    position: relative !important;
-    bottom: auto !important;
-    left: auto !important;
-    transform: none !important;
-    width: 100% !important;
-    margin-top: auto;
-  }
-}
 
 
 /* ==========================================
