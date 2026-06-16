@@ -9,6 +9,15 @@ export const metadata = {
 };
 
 /**
+ * Viewport meta para escalado correcto en móviles
+ */
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
+/**
  * Estructura raíz de la aplicación Next.js
  */
 export default function RootLayout({ children }) {

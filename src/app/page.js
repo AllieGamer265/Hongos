@@ -23,6 +23,12 @@ export default function Home() {
   // Estado para el efecto 3D (Tilt)
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
+  // Detectar si es táctil para desactivar el efecto 3D
+  const [isTouchDevice] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return window.matchMedia("(hover: none)").matches || "ontouchstart" in window;
+  });
+
   // Estado para el crecimiento del hongo
   const [isGrowing, setIsGrowing] = useState(false);
   const [growthStage, setGrowthStage] = useState(0); // 0: nada, 1: brotando, 2: maduro
@@ -173,11 +179,11 @@ export default function Home() {
   };
 
   return (
-    <div 
-      className="book-wrapper"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={resetTilt}
-    >
+      <div 
+          className="book-wrapper"
+          onMouseMove={isTouchDevice ? undefined : handleMouseMove}
+          onMouseLeave={isTouchDevice ? undefined : resetTilt}
+        >
       {/* Zonas invisibles para pasar página (Hitboxes) */}
       <div className="flip-hitbox left" onClick={prevStep} title="Página Anterior"></div>
       <div className="flip-hitbox right" onClick={nextStep} title="Página Siguiente"></div>
@@ -378,7 +384,7 @@ export default function Home() {
           <div className="page-side back">
             <h2>Anatomía Detallada</h2>
             <div className="content-area">
-              <div className="diagram-container" style={{ height: '420px', background: 'none' }}>
+              <div className="diagram-container" style={{ background: 'none' }}>
                 <Image 
                   src={`${process.env.NODE_ENV === 'production' ? '/Hongos' : ''}/anatomy.png`} 
                   alt="Anatomía del hongo" 
