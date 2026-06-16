@@ -59,7 +59,8 @@ h1, h2 {
 /* El libro físico */
 .book {
   width: min(85vw, 450px);
-  height: min(calc(85vw * 1.333), 90dvh, 600px);
+  max-height: min(90dvh, 600px);
+  aspect-ratio: 3 / 4;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.1s ease-out;
@@ -365,7 +366,8 @@ h1, h2 {
 
   .book {
     width: min(80vw, 450px);
-    height: min(calc(80vw * 1.333), 92dvh, 600px);
+    max-height: min(92dvh, 600px);
+    aspect-ratio: 3 / 4;
   }
 }
 
@@ -390,7 +392,8 @@ h1, h2 {
 
   .book {
     width: min(92vw, 420px);
-    height: min(calc(92vw * 1.333), 96dvh, 560px);
+    max-height: min(96dvh, 560px);
+    aspect-ratio: 3 / 4;
   }
 
   .diagram-label {
@@ -450,8 +453,9 @@ h1, h2 {
   }
 
   .book {
-    width: 96vw;
-    height: 94dvh;
+    width: min(96vw, 400px);
+    max-height: 96dvh;
+    aspect-ratio: 3 / 4;
   }
 
   .content-area {
@@ -528,7 +532,8 @@ h1, h2 {
 
   .book {
     width: min(50vh, 80vw, 400px);
-    height: min(calc(min(50vh, 80vw, 400px) * 1.333), 85dvh, 500px);
+    max-height: min(85dvh, 500px);
+    aspect-ratio: 3 / 4;
   }
 
   .page-side {
