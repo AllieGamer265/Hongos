@@ -634,6 +634,96 @@ h1, h2 {
   }
 }
 
+/* ==========================================
+   MÓVILES: MODO SCROLL VERTICAL
+   ========================================== */
+/* En móviles el libro 3D no funciona bien.
+   Convertimos a scroll vertical con páginas apiladas. */
+@media (max-width: 600px) {
+  /* Ocultar hitboxes laterales (estorban en táctil) */
+  .flip-hitbox {
+    display: none;
+  }
+
+  /* Quitar perspectiva 3D */
+  .book-wrapper {
+    perspective: none;
+    width: 100%;
+    gap: 0;
+  }
+
+  /* El libro se vuelve un contenedor scrollable vertical */
+  .book {
+    position: relative;
+    width: 100%;
+    height: auto !important;
+    max-height: none !important;
+    transform: none !important;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px;
+  }
+
+  /* Cada página ya no es absoluta, se apila verticalmente */
+  .page {
+    position: relative !important;
+    width: 100%;
+    height: auto !important;
+    transform: none !important;
+    cursor: default;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* Ambas caras se muestran secuencialmente como secciones */
+  .page-side {
+    position: relative !important;
+    height: auto !important;
+    backface-visibility: visible !important;
+    border-radius: 0;
+    padding: 16px !important;
+    overflow: visible;
+  }
+
+  .page-side.back {
+    transform: none !important;
+    border-radius: 0;
+    border-top: 3px solid var(--accent-color);
+  }
+
+  /* Botones de navegación: se mueven debajo */
+  .nav-controls {
+    position: relative;
+    width: 100%;
+    justify-content: center;
+    padding: 12px 0;
+    gap: 20px;
+  }
+  .nav-btn {
+    padding: 10px 24px;
+    font-size: 1rem;
+  }
+
+  /* Portada: ocupa menos espacio */
+  .cover {
+    min-height: 200px;
+    border-width: 4px !important;
+    outline-offset: -3px !important;
+  }
+
+  .cover-title-overlay {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    margin-top: auto;
+  }
+}
+
 
 /* ==========================================
    INTERACCIÓN DE CRECIMIENTO
