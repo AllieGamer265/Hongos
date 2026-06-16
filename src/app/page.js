@@ -203,9 +203,9 @@ export default function Home() {
         >
           {/* Lado Frontal: Información sobre la Amanita */}
           <div className="page-side">
-            <h2 style={{ fontSize: '1.8rem' }}>Amanita Muscaria</h2>
+            <h2>Amanita Muscaria</h2>
             <div className="content-area" style={{ minHeight: 0 }}>
-              <div style={{ position: 'relative', width: '100%', height: '160px', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 10px rgba(0,0,0,0.2)', flexShrink: 0 }}>
+              <div style={{ position: 'relative', width: '100%', height: 'auto', aspectRatio: '16/9', maxHeight: '160px', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 10px rgba(0,0,0,0.2)', flexShrink: 0 }}>
                 <Image 
                   src={`${process.env.NODE_ENV === 'production' ? '/Hongos' : ''}/amanita_clean.png`} 
                   alt="Amanita Muscaria" 
@@ -538,64 +538,21 @@ export default function Home() {
               priority
             />
             {/* Título Estilizado en la Portada */}
-            <div style={{
-              position: 'absolute',
-              bottom: '10%',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '80%',
-              backgroundColor: 'rgba(61, 43, 31, 0.85)',
-              padding: '20px',
-              borderRadius: '8px',
-              border: '2px solid #e0c097',
-              textAlign: 'center',
-              zIndex: 1,
-              pointerEvents: 'none',
-              boxShadow: '0 4px 15px rgba(0,0,0,0.5)'
-            }}>
-              <h1 style={{ 
-                fontSize: '2.8rem', 
-                color: '#e0c097', 
-                margin: 0,
-                lineHeight: '1',
-                fontFamily: "'Playfair Display', serif"
-              }}>Los Hongos</h1>
-              <div style={{ 
-                width: '60px', 
-                height: '2px', 
-                backgroundColor: '#e0c097', 
-                margin: '10px auto' 
-              }}></div>
-              <p style={{ 
-                color: '#e0c097', 
-                fontSize: '1rem',
-                margin: 0,
-                textTransform: 'uppercase',
-                letterSpacing: '2px'
-              }}>Simulador Botánico Interactivo</p>
+            <div className="cover-title-overlay">
+              <h1>Los Hongos</h1>
+              <div className="divider"></div>
+              <p>Simulador Botánico Interactivo</p>
             </div>
           </div>
           {/* Lado Posterior: Introducción al Proyecto */}
           <div className="page-side back">
             <h2>Introducción</h2>
             <div className="content-area">
-              <p style={{ 
-                fontSize: '1.25rem', 
-                lineHeight: '1.6', 
-                color: '#4a3728',
-                textAlign: 'justify',
-                textIndent: '30px'
-              }}>
+              <p className="intro-text" style={{ textIndent: '30px' }}>
                 Los hongos son criaturas fascinantes. Bienvenido a un mundo inexplorado y nuevo. 
                 Esta es una especie de bitácora donde registraré toda mi investigación para mi feria de ciencias.
               </p>
-              <p style={{ 
-                fontSize: '1.25rem', 
-                lineHeight: '1.6', 
-                color: '#4a3728',
-                textAlign: 'justify',
-                marginTop: '15px'
-              }}>
+              <p className="intro-text" style={{ marginTop: '15px' }}>
                 Existen muchos tipos: venenosos, alucinógenos y comestibles. Además, pueden ser 
                 unicelulares (de una sola célula) o pluricelulares (de muchas células).
               </p>
